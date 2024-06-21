@@ -1,0 +1,57 @@
+ {% load widget_tweaks %}
+
+ {% load partials %}
+ 
+ <div class="space-y-5 mt-5 rounded-lg" id="todo-body">
+        {% if filter.qs %}
+        {% for task in filter.qs %}
+         {% partialdef taskitem-partial inline=True %}
+            <div class="flex items-center justify-between py-2 px-6 shadow-lg bg-gradient-to-r hover:shadow-xl duration-100 from-slate-100 to-slate-300 ">
+                <div class="space-x-4 flex flex-col items-start">
+                    <div>
+                        <p class="font-bold text-md md:text-xl">{{task.title}}</p>
+                        <span>{{task.description}}</span>
+                    </div>
+                    <div>
+                        <span class="text-sm">
+                            <i class="fa-regular fa-clock"></i>
+                            {{task.created_at|timesince}}
+                        </span>
+                    </div>
+                </div>
+                {% partialdef taskcomplete-partial inline=True %}
+                <article class="flex items-center ps-4 space-x-5">
+                    <button
+                    hx-post="{% url 'complete-task' task.pk %}"
+                    hx-target="closest article"
+                    hx-swap="outerHTML"
+                    >
+                    <div>
+                        {% if task.is_completed == True %}
+                       <i class="fa-solid fa-square-check"></i>
+                       <label for="bordered-checkbox-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Task Completed</label>
+                       {% else %}
+                       <i class="fa-regular fa-square-check"></i>
+                       <label for="bordered-checkbox-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Not Completed</label>
+                       {% endif %}
+
+                    </div>
+                    </button>
+                    <button
+                    hx-delete="{% url 'delete-task' task.pk %}"
+                    hx-on:delete-task="this.closest('div').remove()"
+                    class="bg-slate-100 hover:bg-slate-200 p-2 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </article>
+                {% endpartialdef %}
+            </div>
+            {% endpartialdef %}
+            {% endfor %}
+
+            {% else %}
+
+            <h2 class="font-bold">You dont have any Task List Click on the Add Task Button to create One.</h2>
+
+            {% endif %}
+   </div>

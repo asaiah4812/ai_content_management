@@ -1,0 +1,62 @@
+{% extends 'layout/dashboard_layout.html' %}
+
+{% block layout %}
+
+
+
+<section class=" mt-24 pt-4 px-4 pb-[2rem] sm:ml-64" id="messages">
+   <div class="h-[48rem] flex flex-col relative">
+       <div class="mx-auto px-2 py-1 flex items-center justify-center sticky top-0 z-10 bg-green-100 rounded-full text-green-600">
+            {% if other_user %}
+             <a href="{% url 'profile' other_user.username %}">
+                <div class="flex items-center gap-2 p-4 sticky top-0 z-10">
+                    <img class="w-10 h-10 rounded-full object-cover" src="{{ other_user.profile.profileImage.url }}" />
+                    <div>
+                        <span class="font-bold text-white">{{ other_user.profile.name }}</span> 
+                        <span class="text-sm font-light text-gray-400">@{{ other_user.username }}</span>
+                    </div>
+                </div>
+            </a>
+            {% else %}
+            <div id="online-icon"></div>
+           <span class="text-lg hover:bg-green-100 p-2 rounded-full font-bold text-green-600 text-center" id="online-count"> </span>Online
+            {% endif %}
+       </div>
+       <div id='chat_container' class="overflow-y-auto grow mb-[4rem]">
+               <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
+                   {% for message in chat_messages reversed %}
+                   {% include 'chat/chatmessage.html' %}
+                   {% endfor %}
+               </ul>
+           </div>
+   <form 
+   id="chat_message_form"
+   hx-ext="ws"
+   ws-connect="/ws/chatroom/public-chat"
+   ws-send
+   _="on htmx:wsAfterSend reset() me"
+    class="mb-6 fixed w-full md:w-[70%] md:mr-4 bottom-0 right-0 flex items-center gap-2">
+       {% csrf_token %}
+       <input type="text" placeholder="Add message..." id="large-input" name="body" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+       <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Submit</button>
+   </form>
+
+   </div>
+</section>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+
+    function scrollToBottom(time=0) {
+        setTimeout(function() {
+            const container = document.getElementById('chat_container');
+            container.scrollTop = container.scrollHeight;
+        }, time);
+    }
+    scrollToBottom()
+
+</script>
+{% endblock %}

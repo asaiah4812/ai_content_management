@@ -1,0 +1,16 @@
+{% extends 'layout/ques2_layout.html' %} 
+
+{% load static %} 
+
+{% block layout %}
+
+<section class="mx-auto space-y-12 mt-[7rem] h-screen bg-gray-200">
+  <div class="flex items-start justify-between">
+                <h2 class="text-xl font-bold md:text-2xl max-w-[75%] px-4">
+                    Top Questions
+                </h2>
+                <a href="{% url 'questionflow:create-question' %}" class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-md text-white">Ask Question</a>
+            </div>
+</section>
+
+{% endblock %}

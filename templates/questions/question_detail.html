@@ -1,0 +1,52 @@
+{% extends 'layout/ques2_layout.html' %}
+
+{% block questions %}
+
+<main class="grid grid-cols-6 border-t gap-4 ">
+            <div class="col-span-6 md:col-span-4" id="questions">
+                <p>{{question.content}}</p>
+            </div>
+        <aside class="hidden md:block col-span-2 space-y-6 mt-1 "> 
+            <div class="flex flex-col">
+                <div class="py-2 px-3 border">
+                    Featured on Meta
+                </div>
+                <div class="flex flex-col border-l">
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="py-2 px-3 border">
+                    Featured on Meta
+                </div>
+                <div class="flex flex-col border-l">
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        </main>
+
+{% endblock %}

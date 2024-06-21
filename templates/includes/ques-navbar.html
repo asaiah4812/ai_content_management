@@ -1,0 +1,29 @@
+{% load static %}
+<header class="fixed top-0 left-0 right-0 z-30 bg-white">
+    <nav class="py-4  w-[95%] md:w-[80%] lg:w-[70%] flex items-center justify-between mx-auto border-b">
+        <div>
+            <a href="{% url 'home' %}" class="text-2xl font-bold flex gap-2 items-center"><img class="w-23 h-23" src="{% static 'image/icons/logo.png' %}" alt=""> <span>QuestionFlow</span></a>
+        </div>
+        <div class="bg-slate-100 rounded-full p-2 hidden md:flex items-center justify-between gap-2 w-[40%] ">
+            <input type="search" placeholder="Search Questions..." class="outline-none bg-transparent border-none w-full">
+            <button class="text-white bg-blue-500 hover:bg-blue-400 rounded-full w-10 h-10"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="flex items-center gap-3">
+                <div class="">
+                    <i class="fa-solid fa-circle-question text-2xl hover:text-gray-500"></i>
+                </div>
+                <div class="">
+                   <i class="fa-solid fa-trophy text-2xl hover:text-gray-500"></i>
+                </div>
+                <div class="">
+                    <i class="fa-solid fa-inbox text-2xl hover:text-gray-500"></i>
+                </div>
+                <div class="">
+                    <a href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket hover:text-gray-500 text-2xl"></i>
+                    </a>
+                </div>
+        </div>
+    </nav>
+
+</header>

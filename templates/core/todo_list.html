@@ -1,0 +1,115 @@
+{% extends 'layout/dashboard_layout.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% load partials %}
+ 
+{% block layout %}
+
+<style>
+    .animation {
+  opacity: 0;  /* Initially hidden */
+  animation: fadeIn 1s ease-in-out forwards;  /* Animation definition */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+
+<section class="h-fill mt-24 mb-12 p-4 sm:ml-64" x-data="{showForm:false}">
+    <div class="flex items-center justify-between flex-wrap">
+        <h2 class="text-2xl font-bold md:text-3xl"><i class="fa-solid fa-list-check"></i> My Task Lists</h2>
+        <form 
+        hx-get="{% url 'todo_list' %}"
+        hx-target="#todo-body"
+        hx-swap="outerHTML"
+        class="flex items-center gap-2">
+            <div class="mb-3 flex gap-1 items-center">
+                {{ filter.form.category_type|add_label_class:"block mb-2 text-md font-semibold text-gray-900 dark:text-white" }}
+                {% render_field filter.form.category_type class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" %}
+            </div>
+            <button type="submit" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Filter</button>
+        </form>
+        <button type="button" @click.prevent="showForm = !showForm" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"><span x-text="showForm ? 'Close' : 'Add New Task'"></span></button>
+    </div>
+    <form 
+    hx-post="{% url 'submit-task' %}"
+    hx-target="#todo-body"
+    hx-swap="beforeend"
+    hx-on::after-request="this.reset()"
+    class="max-w-sm" x-cloak x-show="showForm">
+        <div class="mb-5">
+    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task Title</label>
+    {% render_field form.title class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" %}
+  </div>
+        <div class="mb-5">
+    <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+    {% render_field form.category class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" %}
+  </div>
+  <div class="mb-5">
+      <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
+      {% render_field form.description class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" rows="2" %}
+  </div>
+
+    <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Task</button>
+    </form>
+    <div class="space-y-5 mt-5 rounded-lg" id="todo-body">
+        {% if filter.qs %}
+        {% for task in filter.qs %}
+         {% partialdef taskitem-partial inline=True %}
+            <div class="flex items-center justify-between py-2 px-6 shadow-lg bg-gradient-to-r hover:shadow-xl duration-100 from-slate-100 to-slate-300 ">
+                <div class="space-x-4 flex flex-col items-start animation">
+                    <div>
+                        <p class="font-bold text-md md:text-xl">{{task.title}}</p>
+                        <span>{{task.description}}</span>
+                    </div>
+                    <div>
+                        <span class="text-sm">
+                            <i class="fa-regular fa-clock"></i>
+                            {{task.created_at|timesince}}
+                        </span>
+                    </div>
+                </div>
+                {% partialdef taskcomplete-partial inline=True %}
+                <article class="flex items-center ps-4 space-x-5">
+                    <button
+                    hx-post="{% url 'complete-task' task.pk %}"
+                    hx-target="closest article"
+                    hx-swap="outerHTML"
+                    >
+                    <div>
+                        {% if task.is_completed == True %}
+                       <i class="fa-solid fa-square-check"></i>
+                       <label for="bordered-checkbox-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Task Completed</label>
+                       {% else %}
+                       <i class="fa-regular fa-square-check"></i>
+                       <label for="bordered-checkbox-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Not Completed</label>
+                       {% endif %}
+
+                    </div>
+                    </button>
+                    <button
+                    hx-delete="{% url 'delete-task' task.pk %}"
+                    hx-on:delete-task="this.closest('div').remove()"
+                    class="bg-slate-100 hover:bg-slate-200 p-2 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </article>
+                {% endpartialdef %}
+            </div>
+            {% endpartialdef %}
+            {% endfor %}
+
+            {% else %}
+
+            <h2 class="font-bold">You dont have any Task List Click on the Add Task Button to create One.</h2>
+
+            {% endif %}
+   </div>
+</section>
+
+{% endblock %}

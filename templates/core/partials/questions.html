@@ -1,0 +1,22 @@
+ <div class="flex border-b gap-4 justify-around p-4 items-start bg-gray-50">
+                    <div class="flex flex-col gap-3 text-right">
+                        <span class="text-xs">O votes</span>
+                        <span class="text-xs">O answers</span>
+                        <span class="text-xs">20 views</span>
+                    </div>
+                  <div class="max-w-[80%] space-y-4">
+                        <a href="{% url 'questionflow:question-detail' question.pk %}" class="text-blue-500 font-semibold">{{question.content}}!</a>
+                        <div class="flex items-center justify-between"> 
+                            <div class="flex gap-3">
+                                {% for tag in question.tags.all %}
+                                <a href="{% url 'questionflow:tagger' tag.slug %}" class="py-1 px-2 bg-gray-200 hover:bg-gray-100 text-xs">{{tag}}</a>
+                                {% endfor %}
+                                </div>
+
+                            <div class="flex gap-2 items-center">
+                                <a href="#" class="flex gap-1 items-center hover:underline text-sm"><img src="{{question.user.profile.profileImage.url}}" class="w-4 h-4 md:w-5 md:h-5 rounded-md" alt=""> <span>@{{question.user.username}}</span></a>
+                                <span class="text-xs">modified {{question.created_at|timesince}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>

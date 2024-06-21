@@ -1,0 +1,198 @@
+{% extends 'layout/home_layout.html' %} 
+{% load static %} 
+
+{% block layout %}
+
+<section class="mx-auto space-y-12 mt-[8rem]">
+  <div class="flex item-center justify-center">
+    <button
+      title="book"
+      class="bg-gradient-to-br from-blue-400 to-blue-700 text-white hover:bg-gradient-to-b duration-100 px-4 py-2 rounded-lg"
+    >
+      <i class="fa-solid fa-book"></i>
+    </button>
+    <div class="w-[25px] h-[5px] bg-gray-300 self-center"></div>
+    <div class="p-2 bg-gray-300 rounded-lg">
+      <span class="text-md font-medium">Welcome to StudyHub</span>
+    </div>
+  </div>
+  <div class="text-center mx-auto py-6">
+    <h2 class="text-4xl font-bold tracking-wider">
+      Build a ChatBot <span class="text-blue-500">Build</span> For You
+    </h2>
+    <p class="text-sm text-gray-500 max-w-[480px] mx-auto">
+      Unlock the power of AI-driven content with-our ChatGPT-trained website
+      hero. Elevate your online presence and captivate your audience. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Iusto enim nostrum
+      eveniet nemo ipsa harum.
+    </p>
+  </div>
+  <div class="mx-auto text-start flex flex-col justify-center space-y-12">
+    <div
+      class="flex item-start self-center justify-center gap-3 bg-orange-300 rounded-lg py-2 px-4 hover:scale-[1.1] ease-in-out duration-200"
+    >
+      <span class="font-medium p-2">Create your ChatBot Now</span
+      ><i class="fa-solid fa-book p-2 rounded text-white text-xl"></i>
+    </div>
+    <div class="flex mx-auto relative flex-col md:flex-row">
+      <img
+        src="{% static 'image/arrow.svg' %}"
+        class="absolute right-0 top-0 -translate-y-20 -translate-x-44 hidden md:block"
+        alt=""
+      />
+      <div data-tilt data-tilt-glare>
+        <img src="{% static 'image/stat1.png' %}" alt="" />
+      </div>
+      <div class="z-20">
+        <img src="{% static 'image/student.png' %}" alt="" />
+      </div>
+      <div data-tilt data-tilt-glare>
+        <img src="{% static 'image/stat2.png' %}" alt="" />
+      </div>
+      <div class="absolute bottom-0 ml-[230px] translate-y-6" data-tilt data-tilt-glare>
+        <img src="{% static 'image/stat3.svg' %}" alt="" />
+      </div>
+    </div>
+    <div class="flex item-center justify-center py-[2rem] text-center mx-auto">
+      <h2 class="me-2">Trusted By World</h2>
+      <span class="text-blue-500">Leading Brands</span>
+    </div>
+    <div class="wrapper">
+      <div class="item item1">
+        <img src="{% static 'image/Python.svg' %}" alt="" />
+      </div>
+      <div class="item item2">
+        <img src="{% static 'image/Amazon.svg' %}" alt="" />
+      </div>
+      <div class="item item3">
+        <img src="{% static 'image/C++.svg' %}" alt="" />
+      </div>
+      <div class="item item4">
+        <img src="{% static 'image/Flutter.svg' %}" alt="" />
+      </div>
+      <div class="item item5">
+        <img src="{% static 'image/Flutter.svg' %}" alt="" />
+      </div>
+      <div class="item item6">
+        <img src="{% static 'image/Swift.svg' %}" alt="" />
+      </div>
+      <div class="item item7">
+        <img src="{% static 'image/CSS3.svg' %}" alt="" />
+      </div>
+      <div class="item item8">
+        <img src="{% static 'image/Python.svg' %}" alt="" />
+      </div>
+    </div>
+  </div>
+  <div class="flex item-center justify-center mt-[1rem]">
+    <button
+      title="book"
+      class="bg-gradient-to-br from-blue-400 to-blue-700 text-white hover:bg-gradient-to-b duration-100 px-4 py-2 rounded-lg"
+    >
+      <i class="fa-solid fa-book"></i>
+    </button>
+    <div class="w-[25px] h-[5px] bg-gray-300 self-center"></div>
+    <a href="" class="p-2 bg-gray-300 rounded-lg">
+      <span class="text-md font-medium">Chatroom </span>
+    </a>
+  </div>
+  <div class="text-center mx-auto py-6">
+    <h2 class="text-4xl font-bold tracking-wider">
+      Build a ChatBot <span class="text-blue-500">Build</span> For You
+    </h2>
+    <p class="text-sm text-gray-500 max-w-[480px] mx-auto">
+      Unlock the power of AI-driven content with-our ChatGPT-trained website
+      hero. Elevate your online presence and captivate your audience. Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Iusto enim nostrum
+      eveniet nemo ipsa harum.
+    </p>
+  </div>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 gap-[3rem] w-[90%] md:w-[75%] lg:w-[70%] mx-auto md:p-12"
+  >
+    <div
+      class="p-10 flex flex-col gap-8 bg-gradient-to-br from-blue-50 to-purple-100 rounded-lg border border-solid border-blue-100"
+    >
+      <div class="overflow-hidden rounded-lg">
+        <img
+          src="{% static 'image/screen1.png' %}"
+          class="w-full hover:scale-110%"
+          alt=""
+        />
+      </div>
+      <div class="flex flex-col gap-3">
+        <h2 class="font-bold text-xl">Create a ChatBot</h2>
+        <p>
+          Create your Bot by Providing its name and also customize its visual
+          presence that matches website
+        </p>
+      </div>
+    </div>
+    <div
+      class="p-10 flex flex-col gap-8 bg-gradient-to-br from-blue-50 to-purple-100 rounded-10"
+    >
+      <div class="flex flex-col gap-3">
+        <h2 class="font-bold text-xl">Create a ChatBot</h2>
+        <p>
+          Create your Bot by Providing its name and also customize its visual
+          presence that matches website
+        </p>
+      </div>
+      <div class="overflow-hidden rounded-lg">
+        <img
+          src="{% static 'image/screen2.png' %}"
+          class="w-full hover:scale-110%"
+          alt=""
+        />
+      </div>
+    </div>
+    <div
+      class="p-2 md:p-5 lg:p-10 flex flex-col gap-8 bg-gradient-to-br from-blue-50 to-purple-100 rounded-lg border border-solid border-blue-100"
+    >
+      <div class="overflow-hidden rounded-lg">
+        <img
+          src="{% static 'image/screen1.png' %}"
+          class="w-full hover:scale-110%"
+          alt=""
+        />
+      </div>
+      <div class="p-2 md:p-5 lg:p-10 flex flex-col gap-3">
+        <h2 class="font-bold text-xl">Create a ChatBot</h2>
+        <p>
+          Create your Bot by Providing its name and also customize its visual
+          presence that matches website
+        </p>
+      </div>
+    </div>
+    <div
+      class="p-2 md:p-5 lg:p-10 flex flex-col gap-8 bg-gradient-to-br from-blue-50 to-purple-100 rounded-10"
+    >
+      <div class="flex flex-col gap-3">
+        <h2 class="font-bold text-xl">Create a ChatBot</h2>
+        <p>
+          Create your Bot by Providing its name and also customize its visual
+          presence that matches website
+        </p>
+      </div>
+      <div class="overflow-hidden rounded-lg">
+        <img
+          src="{% static 'image/screen1.png' %}"
+          class="w-full hover:scale-110%"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex flex-wrap md:flex-nowrap item-center justify-center border h-fill md:h-[45vh] w-full md:w-[80%] lg:w-[75%] mx-auto mt-[3rem] mb-[3]"
+  >
+    <div class="md:-translate-y-20">
+      <img src="{% static 'image/student1.png' %}" alt="" />
+    </div>
+    <div class="md:-translate-y-20">
+      <img src="{% static 'image/chart1.png' %}" alt="" />
+    </div>
+  </div>
+</section>
+
+{% endblock %}

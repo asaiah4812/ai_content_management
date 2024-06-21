@@ -1,0 +1,59 @@
+{% extends 'layout/dashboard_layout.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% load partials %}
+
+{% block layout %}
+
+<section class="h-screen mt-24 mb-12 p-4 sm:ml-64">
+
+    <h2 class="text-2xl md:text-3xl font-bold dark:text-white py-5">{{content.title}}</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="flex items-center justify-center w-full">
+    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+            </svg>
+            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+        </div>
+        <input id="dropzone-file" multiple name="files" type="file" class="hidden" />
+    </label>
+</div> 
+         <button type="submit" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-5">Upload</button>
+    </form>
+    <div class="mt-4">
+        <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+            {% for image in pics %}
+           <li class="pb-3 sm:pb-4">
+              <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                 <div class="flex-shrink-0">
+                    <img class="w-8 h-8 rounded-full" src="{{image.item.url}}" alt="Neil image">
+                 </div>
+                 <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                       Neil Sims
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                       email@flowbite.com
+                    </p>
+                 </div>
+                 <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                    $320
+                 </div>
+              </div>
+           </li>
+           {% endfor %}
+        </ul>
+
+    </div>
+
+</section>
+
+{% endblock %}
