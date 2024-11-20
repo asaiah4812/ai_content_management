@@ -1,8 +1,8 @@
-{% extends 'layout/ques_layout.html' %} 
+{% extends 'layout/ques_layout.html' %}
 
-{% load static %} 
-
-{% block layout %}
+{% block layout_ques %}
+<main class="grid grid-cols-6 border-t gap-4">
+    {% include 'includes/ques_sidebar.html' %}
 
 <section class="mx-auto space-y-12 mt-[7rem] h-screen bg-gray-200">
   <div class="flex items-start justify-between">
@@ -11,6 +11,10 @@
                 </h2>
                 <a href="{% url 'questionflow:create-question' %}" class="bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-md text-white">Ask Question</a>
             </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form}}
+            </form>
 </section>
 
 {% endblock %}

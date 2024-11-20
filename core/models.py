@@ -5,10 +5,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django_resized import ResizedImageField
 import os
+from django.conf import settings
 import uuid
 from django_countries.fields import CountryField
 # Create your models here.
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     addressLine1 = models.CharField(max_length=100, null=True, blank=True)
@@ -38,6 +38,13 @@ class Profile(models.Model):
         self.slug = slugify('{}'.format(self.user.username))
         self.last_updated = timezone.localtime(timezone.now())
         super(Profile, self).save(*args, **kwargs)
+
+    @property
+    def get_profile_image(self):
+        if self.profileImage:
+            return self.profileImage.url
+        else:
+            return settings.MEDIA_URL + 'image/icons/user.png'
 
 
 class Task(models.Model):

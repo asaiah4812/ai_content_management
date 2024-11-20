@@ -185,12 +185,11 @@
                             <div>
                                 <div style="background-color: #1b1b1b8e; font-size: smaller; border-radius: 20px 0px 20px 20px;" class="small p-2 me-2 mb-1 text-white ms-auto">{{ chat.text_input }}</div>
                             </div>
-                            {% if request.user.profile.profileImage.url %}
-                            <img class="rounded-circle mb-1" src="{{request.user.profile.profileImage.url}}"
-                                 alt="avatar 1" style="width: 40px; border-radius: 50%; height: 40px;">
-                                 {% else %}
-                                 <img class="w-8 h-8 rounded-full" src="{% static 'image/icons/user.png' %}" alt="user photo">
-                                 {% endif %}
+                            {% if request.user.profile.profileImage %}
+                <img class="w-8 h-8 rounded-full" src="{{request.user.profile.profileImage.url}}" alt="user photo">
+                {% else %}
+                <img class="w-8 h-8 rounded-full" src="{% static 'image/icons/user.png' %}" alt="user photo">
+                {% endif %} 
                         </div>
                         <div id="response_data" class="d-flex flex-row justify-content-start mb-3">
                             <img src="{% static 'image/ai_assitant.jpeg' %}"
@@ -208,12 +207,11 @@
                       </div>
                     </div>
                     <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-                        {% if request.user.profile.profileImage.url %}
-                      <img class="rounded-circle" src="{{request.user.profile.profileImage.url}}"
-                        alt="avatar 3" style="width: 40px; height: 40px;">
-                        {% else %}
-                        <img class="w-8 h-8 rounded-full" src="{% static 'image/icons/user.png' %}" alt="user photo">
-                        {% endif %}
+                        {% if request.user.profile.profileImage %}
+                <img class="w-8 h-8 rounded-full" src="{{request.user.profile.profileImage.url}}" alt="user photo">
+                {% else %}
+                <img class="w-8 h-8 rounded-full" src="{% static 'image/icons/user.png' %}" alt="user photo">
+                {% endif %} 
                         <form class="form" onsubmit="askQuestion(event)">
                             <input class="form-control ms-2" type="text" id="userText" name="text" placeholder="Ask your question">
                         </form>                
@@ -265,11 +263,11 @@
                         <div>
                             <div style="background-color: #1b1b1b8e; font-size: smaller; border-radius: 20px 0px 20px 20px;" class="small p-2 me-2 mb-1 text-white ms-auto">${text}</div>
                         </div>
-                        {% if request.user.profile.profileImage.url %}
-                        <img class="rounded-circle mb-1" src="{{request.user.profile.profileImage.url}}" alt="avatar 1" style="width: 40px; height: 100%;">
-                        {% else %}
-                        <img class="w-8 h-8 rounded-full" src="{% static 'image/icons/user.png' %}" alt="user photo">
-                        {% endif %}
+                        {% if request.user.profile.profileImage %}
+                <img class="w-8 h-8 rounded-full" src="{{request.user.profile.profileImage.url}}" alt="user photo">
+                {% else %}
+                <img class="w-8 h-8 rounded-full" src="{% static 'image/icons/user.png' %}" alt="user photo">
+                {% endif %} 
                         </div>
                 `;
                 chatCard.scrollTop = chatCard.scrollHeight;

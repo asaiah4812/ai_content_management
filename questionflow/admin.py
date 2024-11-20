@@ -1,5 +1,6 @@
 from django.contrib import admin
 from . models import *
+from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
 
@@ -13,4 +14,12 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-admin.site.register(Answer)
+# admin.site.register(Answer)
+class AnswerAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content',)
+
+admin.site.register(Answer, AnswerAdmin)
+
+@admin.register(Upvoted)
+class UpvotedAdmin(admin.ModelAdmin):
+    list_display = ['question', 'user', 'created']

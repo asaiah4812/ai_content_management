@@ -1,0 +1,80 @@
+{% extends 'layout/ques_layout.html' %}
+{% load static %}
+{% block layout_ques %}
+<main class="grid grid-cols-6 border-t gap-4 ">
+    {% include 'includes/ques_sidebar.html' %}
+            <div class="col-span-6 md:col-span-4 mt-[2rem]" id="questions">
+                {% for question in questions %}
+                 <div class="flex border-b gap-4 justify-around p-4 items-start bg-gray-50">
+                    <div class="flex flex-col gap-3 text-right">
+                        <span class="text-xs">O votes</span>
+                        <span class="text-xs">O answers</span>
+                        <span class="text-xs">20 views</span>
+                    </div>
+                  <div class="max-w-[80%] space-y-4">
+                        <a href="{% url 'questionflow:question-detail' question.pk %}" class="text-blue-500 font-semibold">{{question.content}}!</a>
+                        <div class="flex items-center justify-between"> 
+                            <div class="flex gap-3">
+                                {% for tag in question.tags.all %}
+                                <a href="{% url 'questionflow:tagger' tag.slug %}" class="py-1 px-2 bg-gray-200 hover:bg-gray-100 text-xs">{{tag}}</a>
+                                {% endfor %}
+                                </div>
+
+                            <div class="flex gap-2 items-center">
+                                {% if question.user.profile.profileImage %}
+                                <a href="#" class="flex gap-1 items-center hover:underline text-sm"><img src="{{question.user.profile.profileImage.url}}" class="w-4 h-4 md:w-5 md:h-5 rounded-md" alt=""> <span>@{{question.user.username}}</span></a>
+                                {% else %}
+                                <a href="#" class="flex gap-1 items-center hover:underline text-sm"><img src="{% static 'image/icons/user.png' %}" class="w-4 h-4 md:w-5 md:h-5 rounded-md" alt=""> <span>@{{question.user.username}}</span></a>
+                                {% endif %}
+                                <span class="text-xs">modified {{question.created_at|timesince}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+        <aside class="hidden md:block col-span-1 space-y-6 mt-1 "> 
+            <div class="flex flex-col">
+                <div class="py-2 px-3 border">
+                    Featured on Meta
+                </div>
+                <div class="flex flex-col border-l">
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="py-2 px-3 border">
+                    Featured on Meta
+                </div>
+                <div class="flex flex-col border-l">
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                    <div class="flex items-start gap-2 py-2 px-3 border-b">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Upcommign sign-up experiments related to tags</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        </main>
+
+{% endblock %}

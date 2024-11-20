@@ -11,4 +11,10 @@ urlpatterns = [
     path('chatbot/', include('chatbot.urls')),
     path('stackflow/', include('questionflow.urls', namespace='questionflow')),
     path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('summernote/', include('django_summernote.urls')),
+     path("__reload__/", include("django_browser_reload.urls")),
+]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

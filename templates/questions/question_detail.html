@@ -1,52 +1,108 @@
 {% extends 'layout/ques_layout.html' %}
 
-{% block questions %}
+{% block layout_ques %}
+<main class="grid grid-cols-6 border-t gap-4">
+    {% include 'includes/ques_sidebar.html' %}
+    <div class="col-span-6 md:col-span-4 mt-[2rem]" id="questions">
+        <h1 class="text-5xl font-bold py-2 bg-slate-200 mb-4 rounded-md text-justify">{{question.title}}</h1>
+        <p class="text-sm ring-1 ring-slate-400 p-2 rounded">{{question.content}}</p>
+        {% if user.is_authenticated and user != question.user %}
+        <div id="vote-{{question.id}}" class="py-3 flex items-center space-x-5">
+            <c-upvote
+             href="{% url 'questionflow:upvote_question' question.pk %}"
+             count="{{question.upvote.count}}" />
+            <c-downvote/>
+        </div>     
+        {% endif %}
 
-<main class="grid grid-cols-6 border-t gap-4 ">
-            <div class="col-span-6 md:col-span-4" id="questions">
-                <p>{{question.content}}</p>
-            </div>
-        <aside class="hidden md:block col-span-2 space-y-6 mt-1 "> 
-            <div class="flex flex-col">
-                <div class="py-2 px-3 border">
-                    Featured on Meta
-                </div>
-                <div class="flex flex-col border-l">
-                    <div class="flex items-start gap-2 py-2 px-3 border-b">
-                        <i class="fa-solid fa-message"></i>
-                        <span>Upcommign sign-up experiments related to tags</span>
-                    </div>
-                    <div class="flex items-start gap-2 py-2 px-3 border-b">
-                        <i class="fa-solid fa-message"></i>
-                        <span>Upcommign sign-up experiments related to tags</span>
-                    </div>
-                    <div class="flex items-start gap-2 py-2 px-3 border-b">
-                        <i class="fa-solid fa-message"></i>
-                        <span>Upcommign sign-up experiments related to tags</span>
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-col">
-                <div class="py-2 px-3 border">
-                    Featured on Meta
-                </div>
-                <div class="flex flex-col border-l">
-                    <div class="flex items-start gap-2 py-2 px-3 border-b">
-                        <i class="fa-solid fa-message"></i>
-                        <span>Upcommign sign-up experiments related to tags</span>
-                    </div>
-                    <div class="flex items-start gap-2 py-2 px-3 border-b">
-                        <i class="fa-solid fa-message"></i>
-                        <span>Upcommign sign-up experiments related to tags</span>
-                    </div>
-                    <div class="flex items-start gap-2 py-2 px-3 border-b">
-                        <i class="fa-solid fa-message"></i>
-                        <span>Upcommign sign-up experiments related to tags</span>
-                    </div>
+        <!-- Existing Answers -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Answers</h2>
+            {% for answer in question.answer_set.all %}
+            <div class="mb-4 p-4 bg-gray-100 rounded-lg shadow">
+                <p class="text-gray-800">{{ answer.content|safe }}</p>
+                <div class="flex justify-between items-center mt-4">
+                    <p class="text-sm text-gray-600">Answered by {{ answer.user.username }}</p>
+                    <p class="text-sm text-gray-500">{{ answer.created_at|date:"F j, Y, P" }}</p>
                 </div>
             </div>
-        </aside>
+            {% empty %}
+            <p class="text-gray-600 italic">No answers yet. Be the first to answer!</p>
+            {% endfor %}
+        </div>
 
-        </main>
+  <!-- Answer Form -->
+{% if user.is_authenticated %}
+<div class="mt-8 bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4">Your Answer</h2>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="space-y-2">
+            <label for="{{ form.content.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                Write your answer
+            </label>
+            {{ form.content }}
+            {% if form.content.errors %}
+            <p class="text-red-500 text-xs italic">{{ form.content.errors|join:", " }}</p>
+            {% endif %}
+        </div>
+        <div class="flex justify-end">
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                Post Your Answer
+            </button>
+        </div>
+    </form>
+</div>
+{% else %}
+<div class="mt-8 bg-gray-100 rounded-lg p-6 text-center">
+    <p class="text-gray-700">You must be logged in to answer questions.</p>
+    <a href="{% url 'login' %}" class="mt-2 inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+        Log In
+    </a>
+</div>
+{% endif %}
 
+    </div>
+    <aside class="hidden md:block col-span-1 space-y-6 mt-1"> 
+        <div class="flex flex-col">
+            <div class="py-2 px-3 border">
+                Featured on Meta
+            </div>
+            <div class="flex flex-col border-l">
+                <div class="flex items-start gap-2 py-2 px-3 border-b">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Upcoming sign-up experiments related to tags</span>
+                </div>
+                <div class="flex items-start gap-2 py-2 px-3 border-b">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Upcoming sign-up experiments related to tags</span>
+                </div>
+                <div class="flex items-start gap-2 py-2 px-3 border-b">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Upcoming sign-up experiments related to tags</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="py-2 px-3 border">
+                Featured on Meta
+            </div>
+            <div class="flex flex-col border-l">
+                <div class="flex items-start gap-2 py-2 px-3 border-b">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Upcoming sign-up experiments related to tags</span>
+                </div>
+                <div class="flex items-start gap-2 py-2 px-3 border-b">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Upcoming sign-up experiments related to tags</span>
+                </div>
+                <div class="flex items-start gap-2 py-2 px-3 border-b">
+                    <i class="fa-solid fa-message"></i>
+                    <span>Upcoming sign-up experiments related to tags</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+</main>
 {% endblock %}

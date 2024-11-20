@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load django_browser_reload %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -46,7 +47,7 @@
       href="https://api.fontshare.com/v2/css?f[]=satoshi@300,301,400,401,500,501,700,701,900,901,1,2&display=swap"
       rel="stylesheet"
     />
-
+    {% django_browser_reload_script %}
         <!-- Font Awesome -->
 <link
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"

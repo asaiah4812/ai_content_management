@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST, require_http_methods
 from django.http import HttpResponse
 from .filters import TaskFilter
 from django.contrib.auth.models import User
+from questionflow.models import *
 
 # Create your views here.
 
@@ -15,8 +16,17 @@ def home(request):
 
 @login_required
 def dashboard(request):
+    questions = Question.objects.filter(user=request.user).count
+    task = Task.objects.filter(user=request.user).count
     users = User.objects.exclude(id=request.user.id)
-    return render(request, 'core/dashboard.html', {'users': users})
+    # answers = Answer.objects.filter()
+    context = {
+        'users':users,
+        'question_count':questions,
+        # 'answer_count':An,
+        'task_count':task
+    }
+    return render(request, 'core/dashboard.html', context)
 
 
 # profile view actions page
