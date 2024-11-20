@@ -1,0 +1,13 @@
+{
+    "builds": [{
+        "src": "ai_content_generator/wsgi.py",
+        "use": "@ardnt/python",
+        "config": { "maxLambdaSize": "15mb" , "runtime": "python3.13.6"}
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "ai_content_generator/wsgi.py"
+        }
+    ]
+}
