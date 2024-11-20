@@ -54,7 +54,7 @@ target/
 # IPython
 profile_default/
 ipython_config.py
-
+.env
 # pyenv
 .python-version
 
@@ -104,3 +104,4 @@ dmypy.json
 
 # Editor
 .vscode/
+
